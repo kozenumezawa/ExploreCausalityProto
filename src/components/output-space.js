@@ -2,13 +2,43 @@ import React from 'react'
 import THREE from 'three'
 const OrbitControls = require('three-orbit-controls')(THREE);
 
+var readstream = require('rps-netcdf/fs/readstream');
+var readrandom = require('rps-netcdf/fs/readrandom');
+var netcdf = require('rps-netcdf');
 
 export default class OutputSpace extends React.Component {
   constructor(props) {
     super(props);
 
     this.threeRender = this.threeRender.bind(this);
-  }
+
+    var file = '../../NetCDF/MSM2016070900P.nc';
+    var headerbuffer = readstream(file);
+
+    // Read the header of a NetCDF file
+    netcdf.readheader(headerbuffer, function(header) {
+      console.log(JSON.stringify(header, null, 2));
+
+      var randombuffer = readrandom(file);
+
+      // Read a variable
+      netcdf.readvariable(header, randombuffer, 'lat', function(err, data) {
+        if (err != null) {
+          return console.error(err);
+        }
+        console.log(data);
+      });
+
+      // Read records
+      netcdf.readrecords(header, randombuffer, function(err, data) {
+        if (err != null) {
+          return console.error(err);
+        }
+        console.log(data);
+      });
+    });
+
+   }
 
   //  初期描画が発生した直後に実行される
   componentDidMount() {
