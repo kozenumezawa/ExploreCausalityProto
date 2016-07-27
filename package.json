@@ -21,7 +21,8 @@
     "react-bootstrap": "^0.29.5",
     "react-dom": "^15.2.1",
     "three": "^0.79.0",
-    "three-orbit-controls": "^72.0.0"
+    "three-orbit-controls": "^72.0.0",
+    "vdap": "^0.1.2"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
