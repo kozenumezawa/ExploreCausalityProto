@@ -1,0 +1,19 @@
+・OPeNDAPのtemperatureとrelative humidityのデータ形式のメモ
+temperatureの可視化
+data = [Array[12], Float32Array[12], Float32Array[16], Float32Array[253], Float32Array[241]]
+data[0]・・温度
+    =Array[12]
+    =[Array16, Array16, ...]
+    =[[[Array253, Array253, ...], [Array16],..], ...]
+
+data[1]・・time
+    =Float32Array[12]
+
+data[2]・・ジオポテンシャル高度
+    =Float32Array[16]
+
+data[3]・・緯度
+    =Float32Array[253]
+
+data[4]・・経度
+    =Float32Array[241]
