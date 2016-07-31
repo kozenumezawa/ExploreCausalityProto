@@ -26,13 +26,12 @@ export default class AtmosphereRenderer {
     this.scene.add(cube);
     this.camera.position.z = 5;
 
-    vdap.loadData('http://localhost:8080/thredds/dodsC/hoge/MSM2016070921P.nc.dods?lon,lat,time,temp')
+    vdap.loadData('http://localhost:8080/thredds/dodsC/hoge/MSM2016070921P.nc.dods?temp')
       .then((data) => {
-        console.log(data);
-        this.lon = data[0];
-        this.lat = data[1];
-        this.time = data[2];
-        this.temp = data[3];
+        this.temp = data[0];
+        this.time = data[0][1];
+        const geo = data[0][2];
+        console.log(this.time,geo);
       })
       .then(() => {
         vdap.loadData('http://localhost:8080/thredds/dodsC/hoge/MSM2016070921P.nc.dods?rh')
@@ -40,10 +39,8 @@ export default class AtmosphereRenderer {
             this.rh = data[0];
             console.log(this.temp);
             console.log(this.rh);
-
           })
       });
-
 
     this.threeRender();
   }
